@@ -9,6 +9,7 @@ jobs:
     name: "Run the Twister"
     runs-on: ${{ matrix.os }}
     strategy:
+      fail-fast: false
       matrix:
         python-version:
           - '3.10'
