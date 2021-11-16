@@ -1,62 +1,2627 @@
-name: Test Merseinne Twister
-on:
-  push:
-    branches: [main]
-  pull_request:
-    branches: [main]
 jobs:
   do-the-twist:
-    name: "Run the Twister"
+    name: Do the Twist
     runs-on: ${{ matrix.os }}
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-python@v1
+      with:
+        architecture: ${{ matrix.python-architecture }}
+        python-version: ${{ matrix.python-version }}
+    - run: python testme.py
     strategy:
       fail-fast: false
       matrix:
-        python-version:
-          - '3.10'
-          - '3.9'
-          - '3.8'
-          - '3.7'
-          - '3.6'
-          - 'pypy-3.8'
-          - 'pypy-3.7'
-          - 'pypy-3.6'
-        python-architecture: [x64]
-        os:
-          - "windows-2022"
-          - "windows-2019"
-          - "windows-2016"
-          - "ubuntu-20.04"
-          - "ubuntu-18.04"
-          - "macos-11"
-          - "macos-10.15"
-
         include:
-          - os: windows-2022
-            python-architecture: x86
-
-          - os: windows-2019
-            python-architecture: x86
-
-          - os: windows-2016
-            python-architecture: x86
-
-        exclude:
-          - os: windows-2016
-            python-version: "3.10"
-            python-architecture: x86
-
-          - os: windows-2019
-            python-version: "3.10"
-            python-architecture: x86
-
-          - os: windows-2022
-            python-version: "3.10"
-            python-architecture: x86
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v1
-        with:
-          python-version: ${{ matrix.python-version }}
-          architecture: ${{ matrix.python-architecture }}
-
-      - run: python testme.py
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.11.0-alpha.2
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.11.0-alpha.2
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.11.0-alpha.2
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.11.0-alpha.2
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.11.0-alpha.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.11.0-alpha.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.11.0-alpha.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.11.0-alpha.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-rc.2
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-rc.2
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-rc.2
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-rc.2
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-rc.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-rc.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-rc.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-rc.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-beta.4
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-beta.4
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-beta.4
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-beta.4
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-beta.3
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-beta.3
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-beta.3
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-beta.3
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-beta.2
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-beta.2
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-beta.2
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-beta.2
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-beta.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-beta.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-beta.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-beta.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-alpha.7
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-alpha.7
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-alpha.7
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-alpha.7
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-alpha.6
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-alpha.6
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-alpha.6
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-alpha.6
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-alpha.5
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-alpha.5
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-alpha.5
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-alpha.5
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-alpha.4
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-alpha.4
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-alpha.4
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-alpha.4
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-alpha.3
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-alpha.3
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-alpha.3
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-alpha.3
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-alpha.2
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-alpha.2
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-alpha.2
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-alpha.2
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.10.0-alpha.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.10.0-alpha.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.10.0-alpha.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.10.0-alpha.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.9
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.9
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.9
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.9
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.8
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.8
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.8
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.8
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.7
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.7
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.7
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.7
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.6
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.6
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.6
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.6
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.5
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.5
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.5
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.5
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.4
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.4
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.4
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.4
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.3
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.3
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.3
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.3
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.2
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.2
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.2
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.2
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.2-rc.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.2-rc.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.2-rc.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.2-rc.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.1-rc.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.1-rc.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.1-rc.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.1-rc.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.0
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.0
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.0
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.0
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.0-rc.2
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.0-rc.2
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.0-rc.2
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.0-rc.2
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.0-rc.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.0-rc.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.0-rc.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.0-rc.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.0-beta.5
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.0-beta.5
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.0-beta.5
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.0-beta.5
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.9.0-beta.4
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.9.0-beta.4
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.9.0-beta.4
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.9.0-beta.4
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.12
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.12
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.12
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.12
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.12
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.12
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.11
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.11
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.11
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.11
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.11
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.11
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.10
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.10
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.10
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.10
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.9
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.9
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.9
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.9
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.8
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.8
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.8
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.8
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.7
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.7
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.7
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.7
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.6
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.6
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.6
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.6
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.5
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.5
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.5
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.5
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.4
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.4
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.4
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.4
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.3
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.3
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.3
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.3
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.2
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.2
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.2
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.2
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.8.0
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.8.0
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.8.0
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.8.0
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.12
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.12
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.12
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.12
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.12
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.12
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.11
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.11
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.11
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.11
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.11
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.11
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.10
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.10
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.7.9
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.7.9
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.7.9
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.7.9
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.7.8
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.7.8
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.7.8
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.7.8
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.7.7
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.7.7
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.7.7
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.7.7
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.7.6
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.7.6
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.7.6
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.7.6
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.7.5
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.7.5
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.7.5
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.7.5
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.7.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.7.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.7.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.7.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.15
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.15
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.15
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.15
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.15
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.15
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.14
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.14
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.14
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.14
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.14
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.14
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.13
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.13
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.13
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.13
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.13
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.13
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.13
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.13
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.12
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.12
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.12
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.12
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.12
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.12
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.12
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.12
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.11
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.11
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.11
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.11
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.11
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.11
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.11
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.11
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.10
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.10
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.9
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.9
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.6.8
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.6.8
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.6.8
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.6.8
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.6.7
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.6.7
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.6.7
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.6.7
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.5.10
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.5.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.10
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.10
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.5.9
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.5.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.9
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.9
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.9
+        - os: macos-11
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.5.4
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.5.4
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.5.4
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.5.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.4.10
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.4.10
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.4.4
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.4.4
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.4.4
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.4.4
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.4.4
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.4.4
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 3.3.7
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 3.3.7
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.3.5
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.3.5
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.3.5
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.3.5
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.3.5
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.3.5
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.2.5
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.2.5
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.2.5
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.2.5
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.2.5
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.2.5
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.1.4
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.1.4
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.1.4
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.1.4
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.1.4
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.1.4
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 3.0.1
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 3.0.1
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 3.0.1
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 3.0.1
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 3.0.1
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 3.0.1
+        - os: macos-11
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 2.7.18
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 2.7.18
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 2.7.18
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 2.7.18
+        - os: macos-11
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: macos-10.15
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: ubuntu-20.04
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: ubuntu-18.04
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: windows-2022
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: windows-2019
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: windows-2016
+          python-architecture: x64
+          python-version: 2.7.17
+        - os: windows-2022
+          python-architecture: x86
+          python-version: 2.7.17
+        - os: windows-2019
+          python-architecture: x86
+          python-version: 2.7.17
+        - os: windows-2016
+          python-architecture: x86
+          python-version: 2.7.17
+name: Test Merseinne Twister
+'on':
+  pull_request:
+    branches:
+    - main
+  push:
+    branches:
+    - main
