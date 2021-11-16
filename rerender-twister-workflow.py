@@ -60,6 +60,10 @@ def main():
     for data in json.loads(manifest.text):
         for release in data['files']:
             for target_os in PLATFORMS[release['platform']]:
+                if n_includes > 256:
+                    # Found this out the hard way.
+                    raise Exception("Can't test more than 256 combinations.")
+
                 n_includes += 1
                 include_dict = {
                     'os': target_os,
