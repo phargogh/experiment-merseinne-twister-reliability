@@ -1,5 +1,8 @@
 import json
+import collections
+import pprint
 
+from packaging import version
 import requests
 from yaml import load, dump
 try:
@@ -57,23 +60,44 @@ PLATFORMS = {
 def main():
     manifest = requests.get('https://raw.githubusercontent.com/actions/python-versions/main/versions-manifest.json')
     n_includes = 0
+
+    # {2.7: {2.7.17: [data dicts]}}, then sort inner keys and take last one
+    python_major_versions = collections.defaultdict(
+            lambda: collections.defaultdict(list))
+
     for data in json.loads(manifest.text):
         for release in data['files']:
             for target_os in PLATFORMS[release['platform']]:
-                if n_includes > 256:
-                    # Found this out the hard way.
-                    raise Exception("Can't test more than 256 combinations.")
-
                 n_includes += 1
                 include_dict = {
                     'os': target_os,
                     'python-version': data['version'],
                     'python-architecture': release['arch'],
                 }
-                WORKFLOW['jobs']['do-the-twist']['strategy']['matrix'][
-                    'include'].append(include_dict)
 
-    print(f'Found {n_includes} python version combinations')
+                major_version = '.'.join(data['version'].split('.')[:2])
+                python_major_versions[major_version][
+                    data['version']].append(include_dict)
+
+    latest_minor_versions = {}
+    for major_version, data in python_major_versions.items():
+        # packaging.version function allows for proper python version
+        # comparisons so we don't accidentally end up with an alpha when the
+        # latest release is really a bugfix release.
+        latest_minor_versions[major_version] = sorted(
+            data, key=version.parse)[-1]
+
+    pprint.pprint(latest_minor_versions)
+
+    n_actually_included = 0
+    for major_version, minor_version in latest_minor_versions.items():
+        include_dicts = python_major_versions[major_version][minor_version]
+        n_actually_included += len(include_dicts)
+        WORKFLOW['jobs']['do-the-twist']['strategy']['matrix'][
+            'include'].extend(include_dicts)
+
+    print(f'Found {n_includes} python version combinations, '
+          f'{n_actually_included} are the latest version per major release.')
 
     with open('.github/workflows/test-twister.yml', 'w') as workflow_file:
         workflow_file.write(dump(WORKFLOW, Dumper=Dumper))
