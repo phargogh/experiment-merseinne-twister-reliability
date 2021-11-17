@@ -4,7 +4,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     steps:
     - uses: actions/checkout@v2
-    - uses: actions/setup-python@v1
+    - uses: actions/setup-python@v2
       with:
         architecture: ${{ matrix.python-architecture }}
         python-version: ${{ matrix.python-version }}

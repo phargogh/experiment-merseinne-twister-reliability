@@ -35,7 +35,7 @@ WORKFLOW = {
                     'uses': 'actions/checkout@v2'
                 },
                 {
-                    'uses': 'actions/setup-python@v1',
+                    'uses': 'actions/setup-python@v2',
                     'with': {
                         'python-version': '${{ matrix.python-version }}',
                         'architecture': '${{ matrix.python-architecture }}',
